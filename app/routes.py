@@ -5,7 +5,7 @@ from flask import request
 from app import app
 
 OUTPUT_PATH = "/usr/resourse/output"
-UPLOAD_FOLDER = "/usr/resourse/input"
+INPUT_PATH = "/usr/resourse/input"
 
 @app.route('/v1/oemer/recognize', methods=['POST'])
 def recognize():
@@ -13,12 +13,12 @@ def recognize():
     if file:
         try:
             filename = "image.jpg"
-            file_path = os.path.join(UPLOAD_FOLDER, filename)
+            file_path = os.path.join(INPUT_PATH, filename)
             file.save(file_path) 
             
             command = f"oemer -o {OUTPUT_PATH} {file_path}"
             subprocess.run(command, shell=True) 
-            return {}, 200
+            return 200
         except Exception as e:
             return {"error": str(e)}, 500  # Internal Server Error
     else:
