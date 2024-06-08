@@ -1,4 +1,4 @@
-FROM  huecker.io/library/python:3.12
+FROM --platform=linux/amd64 huecker.io/library/python:3.12
 
 RUN pip install oemer
 RUN pip install flask
@@ -11,7 +11,8 @@ RUN mkdir -p /usr/resourse/output
 RUN mkdir /usr/resourse/input
 RUN mkdir /usr/resourse/mock_output/
 
-COPY ./mock_image.musicxml ./image.musicxml
+COPY ./mock_image.musicxml /usr/resourse/mock_output
+RUN mv /usr/resourse/mock_output/mock_image.musicxml /usr/resourse/mock_output/image.musicxml
 
 WORKDIR /usr/src/oemer_rest_api
 
