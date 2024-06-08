@@ -10,6 +10,7 @@ oemer_process = None
 OUTPUT_PATH = "/usr/resourse/output"
 INPUT_PATH = "/usr/resourse/input"
 IMG_NAME = "image.jpg"
+MUSICXML_NAME = "image.musicxml"
 
 @app.route('/v1/oemer/recognize', methods=['POST'])
 def recognize():
@@ -20,12 +21,12 @@ def recognize():
         if file:
             try:
                 img_path = os.path.join(INPUT_PATH, IMG_NAME)
-                file.save(img_path) 
+                file.save(img_path)
                 oemer_process = run_oemer(img_path)
                 
-                musicxml_path = os.path.join(OUTPUT_PATH, IMG_NAME)
+                musicxml_path = os.path.join(OUTPUT_PATH, MUSICXML_NAME)
                 if os.path.exists(musicxml_path):
-                    return send_file(musicxml_path, as_attachment=True)
+                    return send_file(musicxml_path)
                 else:
                     return {"info": "Sorry, Oemer could not make recognition."}
             except Exception as e:
