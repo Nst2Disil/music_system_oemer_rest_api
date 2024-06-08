@@ -18,7 +18,7 @@ def recognize():
             
             command = f"oemer -o {OUTPUT_PATH} {file_path}"
             subprocess.run(command, shell=True) 
-            return 200
+            return {}
         except Exception as e:
             return {"error": str(e)}, 500  # Internal Server Error
     else:
