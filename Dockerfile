@@ -16,9 +16,6 @@ WORKDIR /usr/src/oemer_rest_api
 COPY ./app ./app
 COPY ./main.py .
 
-# Copy image for oemer (temporary hardcoded)
-COPY ./image.jpeg /usr/resourse/input
-
 ENV FLASK_APP main.py
 
 CMD ["flask", "run", "--host=0.0.0.0"]
