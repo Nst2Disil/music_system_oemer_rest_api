@@ -1,6 +1,6 @@
 import subprocess
 import os
-from flask import request
+from flask import request, send_file
 
 from app import app
 
@@ -22,7 +22,12 @@ def recognize():
                 img_path = os.path.join(INPUT_PATH, IMG_NAME)
                 file.save(img_path) 
                 oemer_process = run_oemer(img_path)
-                return {}
+                
+                musicxml_path = os.path.join(OUTPUT_PATH, IMG_NAME)
+                if os.path.exists(musicxml_path):
+                    return send_file(musicxml_path, as_attachment=True)
+                else:
+                    return {"info": "Sorry, Oemer could not make recognition."}
             except Exception as e:
                 return {"error": str(e)}, 500  # Internal Server Error
         else:
