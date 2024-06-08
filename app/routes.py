@@ -11,6 +11,7 @@ OUTPUT_PATH = "/usr/resourse/output"
 INPUT_PATH = "/usr/resourse/input"
 IMG_NAME = "image.jpg"
 MUSICXML_NAME = "image.musicxml"
+MOCK_MUSICXML_PATH = "/usr/resourse/mock_output/image.musicxml"
 
 @app.route('/v1/oemer/recognize', methods=['POST'])
 def recognize():
@@ -20,6 +21,9 @@ def recognize():
         file = request.files.get('file')
         if file:
             try:
+                if "OEMER_MOCK_RESULT" in os.environ:
+                    return send_file(MOCK_MUSICXML_PATH)
+
                 img_path = os.path.join(INPUT_PATH, IMG_NAME)
                 file.save(img_path)
                 oemer_process = run_oemer(img_path)
