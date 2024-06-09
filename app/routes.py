@@ -2,6 +2,7 @@ import subprocess
 import os
 from flask import request, send_file, jsonify
 
+
 from app import app
 
 global oemer_process
@@ -34,6 +35,7 @@ def recognize():
                 musicxml_path = os.path.join(OUTPUT_PATH, MUSICXML_NAME)
                 if os.path.exists(musicxml_path):
                     return send_file(musicxml_path) 
+
             except Exception as e:
                 return {"error": str(e)}, 500  # Internal Server Error
         else:
