@@ -33,9 +33,7 @@ def recognize():
                 
                 musicxml_path = os.path.join(OUTPUT_PATH, MUSICXML_NAME)
                 if os.path.exists(musicxml_path):
-                    return send_file(musicxml_path)
-                else:
-                    return {"info": "Sorry, Oemer could not make recognition."}
+                    return send_file(musicxml_path) 
             except Exception as e:
                 return {"error": str(e)}, 500  # Internal Server Error
         else:
